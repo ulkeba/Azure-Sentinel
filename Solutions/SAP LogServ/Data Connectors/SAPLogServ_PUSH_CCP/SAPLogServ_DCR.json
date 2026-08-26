@@ -63,6 +63,170 @@
           {
             "name": "test1",
             "type": "dynamic"
+          },
+          {
+            "name": "ECS_BP_ID",
+            "type": "string"
+          },
+          {
+            "name": "ECS_Required",
+            "type": "string"
+          },
+          {
+            "name": "Notes",
+            "type": "string"
+          },
+          {
+            "name": "_export_time",
+            "type": "string"
+          },
+          {
+            "name": "account_name",
+            "type": "string"
+          },
+          {
+            "name": "asset_name",
+            "type": "string"
+          },
+          {
+            "name": "asset_state",
+            "type": "string"
+          },
+          {
+            "name": "asset_type_string",
+            "type": "string"
+          },
+          {
+            "name": "asset_unique_id",
+            "type": "string"
+          },
+          {
+            "name": "asset_vendor_id",
+            "type": "string"
+          },
+          {
+            "name": "compliance_alert_id",
+            "type": "string"
+          },
+          {
+            "name": "compliance_category",
+            "type": "string"
+          },
+          {
+            "name": "compliance_control_description",
+            "type": "string"
+          },
+          {
+            "name": "compliance_description",
+            "type": "string"
+          },
+          {
+            "name": "compliance_ecs_cloud_vendors",
+            "type": "string"
+          },
+          {
+            "name": "compliance_ecs_policy",
+            "type": "string"
+          },
+          {
+            "name": "compliance_ecssecurity_category",
+            "type": "string"
+          },
+          {
+            "name": "compliance_id",
+            "type": "string"
+          },
+          {
+            "name": "compliance_policy",
+            "type": "string"
+          },
+          {
+            "name": "compliance_priority",
+            "type": "string"
+          },
+          {
+            "name": "compliance_result",
+            "type": "string"
+          },
+          {
+            "name": "compliance_result_updated",
+            "type": "string"
+          },
+          {
+            "name": "compliance_rule_id",
+            "type": "string"
+          },
+          {
+            "name": "compliance_section_id",
+            "type": "string"
+          },
+          {
+            "name": "compliance_securitydomain",
+            "type": "string"
+          },
+          {
+            "name": "compliance_sub_category",
+            "type": "string"
+          },
+          {
+            "name": "compliance_sub_section_id",
+            "type": "string"
+          },
+          {
+            "name": "compliance_sub_sub_category",
+            "type": "string"
+          },
+          {
+            "name": "compliance_sub_sub_section_id",
+            "type": "string"
+          },
+          {
+            "name": "compliance_sub_sub_sub_section_id",
+            "type": "string"
+          },
+          {
+            "name": "etl_lastupdate_ts",
+            "type": "string"
+          },
+          {
+            "name": "file_timestamp",
+            "type": "string"
+          },
+          {
+            "name": "filepath",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "name": "priv.full_scan_time",
+            "type": "string"
+          },
+          {
+            "name": "recommendation",
+            "type": "string"
+          },
+          {
+            "name": "result",
+            "type": "string"
+          },
+          {
+            "name": "rule_id",
+            "type": "string"
+          },
+          {
+            "name": "source_location_tag",
+            "type": "string"
+          },
+          {
+            "name": "state",
+            "type": "dynamic"
+          },
+          {
+            "name": "subscription_id",
+            "type": "string"
           }
         ]
       }
@@ -213,7 +377,17 @@
         "destinations": [
           "clv2ws1"
         ],
-        "transformKql": "source\n| where not(clz_dir == \"windows\")\n| where not(clz_dir == \"linux\" and tolower(clz_subdir) !in (\"proxy\", \"pacemaker\", \"linux_secure\"))\n| where not(clz_dir == \"hana\" and clz_subdir == \"hanaaudit\")\n| where not(clz_dir == \"dns\" and clz_subdir == \"binddns\" and (_raw contains \" query: \" or _raw contains \"query failed (\"))\n| where not(clz_dir == \"webdispatcher\" and tolower(clz_subdir) == \"denylog\")\n| where not(clz_dir == \"webdispatcher\" and tolower(clz_subdir) == \"accesslog\" and (_raw contains \"{[\" or (_raw contains \" sent \" and _raw contains \" ms to \") or _raw contains \"t0(timeofday):\"))\n| where not(clz_dir == \"abap\" and clz_subdir == \"abapaudit\")\n| where not(clz_dir == \"abap\" and tolower(clz_subdir) == \"httpaccesslog\" and _raw contains \"HTTP/\")\n| where not(clz_dir == \"azure\" and clz_subdir == \"flowlogflowevent\")\n| where not(clz_dir == \"linux\" and tolower(clz_subdir) == \"proxy\" and _raw contains \"logformat=\")\n| extend TimeGenerated = (datetime(1970-01-01) + _time * 1sec)\n| extend Raw = _raw\n| extend UnixTimestamp = _time\n| project-away _raw, _time\n",
+        "transformKql": "source\n| where clz_dir == \"orca\"\n| extend priv_full_scan_time = todatetime(['priv.full_scan_time'])\n| extend TimeGenerated = priv_full_scan_time\n| extend export_time = todatetime(_export_time)\n| extend etl_lastupdate_ts = todatetime(etl_lastupdate_ts)\n| extend file_timestamp = todatetime(file_timestamp)\n| project TimeGenerated, ECS_BP_ID, ECS_Required, Notes, export_time, account_name, asset_name, asset_state, asset_type_string, asset_unique_id, asset_vendor_id, clz_dir, clz_subdir, compliance_alert_id, compliance_category, compliance_control_description, compliance_description, compliance_ecs_cloud_vendors, compliance_ecs_policy, compliance_ecssecurity_category, compliance_id, compliance_policy, compliance_priority, compliance_result, compliance_result_updated, compliance_rule_id, compliance_section_id, compliance_securitydomain, compliance_sub_category, compliance_sub_section_id, compliance_sub_sub_category, compliance_sub_sub_section_id, compliance_sub_sub_sub_section_id, etl_lastupdate_ts, file_timestamp, filepath, id, priv_full_scan_time, recommendation, region, result, rule_id, source_location_tag, state, subscription_id",
+        "outputStream": "Custom-SAPOrca_CL"
+      },
+      {
+        "streams": [
+          "Custom-SAPLogServ_CL"
+        ],
+        "destinations": [
+          "clv2ws1"
+        ],
+        "transformKql": "source\n| where not(clz_dir == \"windows\")\n| where not(clz_dir == \"linux\" and tolower(clz_subdir) !in (\"proxy\", \"pacemaker\", \"linux_secure\"))\n| where not(clz_dir == \"hana\" and clz_subdir == \"hanaaudit\")\n| where not(clz_dir == \"dns\" and clz_subdir == \"binddns\" and (_raw contains \" query: \" or _raw contains \"query failed (\"))\n| where not(clz_dir == \"webdispatcher\" and tolower(clz_subdir) == \"denylog\")\n| where not(clz_dir == \"webdispatcher\" and tolower(clz_subdir) == \"accesslog\" and (_raw contains \"{[\" or (_raw contains \" sent \" and _raw contains \" ms to \") or _raw contains \"t0(timeofday):\"))\n| where not(clz_dir == \"abap\" and clz_subdir == \"abapaudit\")\n| where not(clz_dir == \"abap\" and tolower(clz_subdir) == \"httpaccesslog\" and _raw contains \"HTTP/\")\n| where not(clz_dir == \"azure\" and clz_subdir == \"flowlogflowevent\")\n| where not(clz_dir == \"linux\" and tolower(clz_subdir) == \"proxy\" and _raw contains \"logformat=\")\n| where not(clz_dir == \"orca\")\n| extend TimeGenerated = (datetime(1970-01-01) + _time * 1sec)\n| extend Raw = _raw\n| extend UnixTimestamp = _time\n| project TimeGenerated, clz_dir, clz_subdir, cribl_breaker, cribl_pipe, host, index, region, source, sourcetype, test, test1, Raw, UnixTimestamp\n",
         "outputStream": "Custom-SAPLogServ_CL"
       }
     ]

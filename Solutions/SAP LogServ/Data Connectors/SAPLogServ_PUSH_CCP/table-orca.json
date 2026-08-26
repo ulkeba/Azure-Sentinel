@@ -1,0 +1,194 @@
+{
+    "name": "SAPOrca_CL",
+    "apiVersion": "2025-02-01",
+    "type": "Microsoft.OperationalInsights/workspaces/tables",
+    "location": "{{location}}",
+    "tags": {},
+    "properties": {
+        "schema": {
+            "name": "SAPOrca_CL",
+            "columns": [
+                {
+                    "name": "TimeGenerated",
+                    "type": "datetime"
+                },
+                {
+                    "name": "ECS_BP_ID",
+                    "type": "string"
+                },
+                {
+                    "name": "ECS_Required",
+                    "type": "string"
+                },
+                {
+                    "name": "Notes",
+                    "type": "string"
+                },
+                {
+                    "name": "export_time",
+                    "type": "datetime"
+                },
+                {
+                    "name": "account_name",
+                    "type": "string"
+                },
+                {
+                    "name": "asset_name",
+                    "type": "string"
+                },
+                {
+                    "name": "asset_state",
+                    "type": "string"
+                },
+                {
+                    "name": "asset_type_string",
+                    "type": "string"
+                },
+                {
+                    "name": "asset_unique_id",
+                    "type": "string"
+                },
+                {
+                    "name": "asset_vendor_id",
+                    "type": "string"
+                },
+                {
+                    "name": "clz_dir",
+                    "type": "string"
+                },
+                {
+                    "name": "clz_subdir",
+                    "type": "string"
+                },
+                {
+                    "name": "compliance_alert_id",
+                    "type": "string"
+                },
+                {
+                    "name": "compliance_category",
+                    "type": "string"
+                },
+                {
+                    "name": "compliance_control_description",
+                    "type": "string"
+                },
+                {
+                    "name": "compliance_description",
+                    "type": "string"
+                },
+                {
+                    "name": "compliance_ecs_cloud_vendors",
+                    "type": "string"
+                },
+                {
+                    "name": "compliance_ecs_policy",
+                    "type": "string"
+                },
+                {
+                    "name": "compliance_ecssecurity_category",
+                    "type": "string"
+                },
+                {
+                    "name": "compliance_id",
+                    "type": "string"
+                },
+                {
+                    "name": "compliance_policy",
+                    "type": "string"
+                },
+                {
+                    "name": "compliance_priority",
+                    "type": "string"
+                },
+                {
+                    "name": "compliance_result",
+                    "type": "string"
+                },
+                {
+                    "name": "compliance_result_updated",
+                    "type": "string"
+                },
+                {
+                    "name": "compliance_rule_id",
+                    "type": "string"
+                },
+                {
+                    "name": "compliance_section_id",
+                    "type": "string"
+                },
+                {
+                    "name": "compliance_securitydomain",
+                    "type": "string"
+                },
+                {
+                    "name": "compliance_sub_category",
+                    "type": "string"
+                },
+                {
+                    "name": "compliance_sub_section_id",
+                    "type": "string"
+                },
+                {
+                    "name": "compliance_sub_sub_category",
+                    "type": "string"
+                },
+                {
+                    "name": "compliance_sub_sub_section_id",
+                    "type": "string"
+                },
+                {
+                    "name": "compliance_sub_sub_sub_section_id",
+                    "type": "string"
+                },
+                {
+                    "name": "etl_lastupdate_ts",
+                    "type": "datetime"
+                },
+                {
+                    "name": "file_timestamp",
+                    "type": "datetime"
+                },
+                {
+                    "name": "filepath",
+                    "type": "string"
+                },
+                {
+                    "name": "id",
+                    "type": "string"
+                },
+                {
+                    "name": "priv_full_scan_time",
+                    "type": "datetime"
+                },
+                {
+                    "name": "recommendation",
+                    "type": "string"
+                },
+                {
+                    "name": "region",
+                    "type": "string"
+                },
+                {
+                    "name": "result",
+                    "type": "string"
+                },
+                {
+                    "name": "rule_id",
+                    "type": "string"
+                },
+                {
+                    "name": "source_location_tag",
+                    "type": "string"
+                },
+                {
+                    "name": "state",
+                    "type": "dynamic"
+                },
+                {
+                    "name": "subscription_id",
+                    "type": "string"
+                }
+            ]
+        }
+    }
+}
